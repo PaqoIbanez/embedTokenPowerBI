@@ -8,10 +8,11 @@ dotenv.config();
 
 const app: Application = express();
 const port = process.env.PORT || 5300;
+const serverUrl = process.env.RENDER_EXTERNAL_URL || `http://localhost:${port}`;
 
 // Middlewares
 app.use( express.json() );
-app.use( express.static( path.join( __dirname, "../public" ) ) );
+// app.use( express.static( path.join( __dirname, "../public" ) ) );
 app.use( "/assets", express.static( path.join( __dirname, "../node_modules" ) ) );
 
 // Rutas
@@ -41,6 +42,6 @@ app.use( ( err: Error, _: Request, res: Response ) => {
   } );
 } );
 
-// app.get('/', (_, res) => {
-//   res.sendFile(path.join(__dirname, '../views/index.html'));
-// });
+app.listen(port, () => {
+    console.log(`Servidor ejecutándose en ${serverUrl}`);
+});
