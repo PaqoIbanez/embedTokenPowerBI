@@ -34,13 +34,24 @@ app.get( "/getEmbedToken", async ( _: Request, res: Response ) => {
 } );
 
 // Manejo de errores centralizado
-app.use( ( err: Error, _: Request, res: Response ) => {
-  console.error( "Error global:", err );
-  res.status( 500 ).json( {
-    mensaje: "Error inesperado en el servidor",
-    error: err.message
-  } );
-} );
+app.use((err: Error, _: Request, res: Response, __: Function) => {
+  console.error("Error global:", err);
+
+  if (!res || typeof res.status !== "function") {
+      console.error("El objeto res no es válido:", res);
+      return;
+  }
+
+  if (res.headersSent) {
+      return;
+  }
+
+  res.status(500).json({
+      mensaje: "Error inesperado en el servidor",
+      error: err.message
+  });
+});
+
 
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en ${serverUrl}`);
