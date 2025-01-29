@@ -15,9 +15,9 @@ app.use( express.static( path.join( __dirname, "../public" ) ) );
 app.use( "/assets", express.static( path.join( __dirname, "../node_modules" ) ) );
 
 // Rutas
-app.get( "/", ( _: Request, res: Response ) => {
-  res.sendFile( path.join( __dirname, "../views/index.html" ) );
-} );
+// app.get( "/", ( _: Request, res: Response ) => {
+//   res.sendFile( path.join( __dirname, "../views/index.html" ) );
+// } );
 
 app.get( "/getEmbedToken", async ( _: Request, res: Response ) => {
   try {
@@ -41,6 +41,6 @@ app.use( ( err: Error, _: Request, res: Response ) => {
   } );
 } );
 
-app.listen( port, () => {
-  console.log( `Servidor ejecutándose en http://localhost:${ port }` );
-} );
+// app.get('/', (_, res) => {
+//   res.sendFile(path.join(__dirname, '../views/index.html'));
+// });
